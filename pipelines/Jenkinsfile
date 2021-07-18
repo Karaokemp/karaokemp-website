@@ -54,7 +54,7 @@ pipeline {
       steps{
               zip zipFile: "frontend.zip", dir:"${SERVICE}",glob: 'src/,*'
               withAWS(credentials:"aws", region:"eu-central-1"){
-                s3Upload(includePathPattern:"*.zip",bucket:"karaokemp-artifacts/karaokemp-website/COMMIT-${GIT_COMMIT}")
+                s3Upload(includePathPattern:"*.zip",bucket:"kcs-artifacts/karaokemp-website/COMMIT-${GIT_COMMIT}")
               }
       }
     }
@@ -75,10 +75,10 @@ stages{
                 sh "sam package \
                     --template-file template.yaml \
                     --output-template-file packaged.yaml \
-                    --s3-bucket karaokemp-artifacts \
+                    --s3-bucket kcs-artifacts \
                     --s3-prefix karaokemp-website/COMMIT-${GIT_COMMIT}/cloud-services"
-                    s3Upload(includePathPattern:"packaged.yaml",bucket:"karaokemp-artifacts/karaokemp-website/COMMIT-${GIT_COMMIT}/cloud-services")
-                    s3Upload(includePathPattern:"samconfig.toml",bucket:"karaokemp-artifacts/karaokemp-website/COMMIT-${GIT_COMMIT}/cloud-services")
+                    s3Upload(includePathPattern:"packaged.yaml",bucket:"kcs-artifacts/karaokemp-website/COMMIT-${GIT_COMMIT}/cloud-services")
+                    s3Upload(includePathPattern:"samconfig.toml",bucket:"kcs-artifacts/karaokemp-website/COMMIT-${GIT_COMMIT}/cloud-services")
                     archiveArtifacts artifacts: "packaged.yaml"
                     archiveArtifacts artifacts: "samconfig.toml"
               }    
