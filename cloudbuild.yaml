@@ -1,7 +1,44 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build','-t','europe-west3-docker.pkg.dev/karaokemp-website/nginx/nginx:latest','.' ]
+  - name: gcr.io/k8s-skaffold/pack
+    args:
+      - build
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+      - '--builder=gcr.io/buildpacks/builder:v1'
+      - '--network=cloudbuild'
+      - '--path=.'
+    id: Buildpack
+    entrypoint: pack
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+    id: Push
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    args:
+      - run
+      - services
+      - update
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - '--image=$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
+      - '--region=$_DEPLOY_REGION'
+      - '--quiet'
+    id: Deploy
+    entrypoint: gcloud
 images:
-  - europe-west3-docker.pkg.dev/karaokemp-website/nginx/nginx:latest
+  - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
 options:
-  logging: CLOUD_LOGGING_ONLY
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _TRIGGER_ID: 38cb113a-f6f9-4309-b6e9-40998b7eb7a8
+  _SERVICE_NAME: website
+  _DEPLOY_REGION: europe-west3
+  _GCR_HOSTNAME: eu.gcr.io
+  _PLATFORM: managed
+  _LABELS: gcb-trigger-id=38cb113a-f6f9-4309-b6e9-40998b7eb7a8
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
+  - website
