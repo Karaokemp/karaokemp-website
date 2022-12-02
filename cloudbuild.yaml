@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build','-t','europe-west3-docker.pkg.dev/karaokemp-website/nginx/nginx:latest','.' ]
+images:
+  - europe-west3-docker.pkg.dev/karaokemp-website/nginx/nginx:latest
+options:
+  logging: CLOUD_LOGGING_ONLY
