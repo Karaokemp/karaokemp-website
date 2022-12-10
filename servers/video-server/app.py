@@ -15,9 +15,8 @@ def put_youtube_video(video_id):
 
     print(f'request to put youtube video id: {video_id}')
     video_path = download_youtube_video(video_id=video_id)
-    upload(video_path)
-
-    return f': {video_path}'
+    video_url = upload(video_path)
+    return video_url
 
 
 if __name__ == "__main__":

@@ -31,7 +31,8 @@ def download(video_id):
         video_extention = video_info.get('ext', None)
         filename = f'{slugify(video_title)}.{video_extention}'
         file_path = f'{TEMP_FILE_DIR}{os.path.sep}{filename}'
-        print(file_path)
+        if os.path.exists(file_path):
+            os.remove(file_path)
         os.rename(TEMP_FILE_PATH,file_path)
 
         print(f'Downloaded: {filename}')
