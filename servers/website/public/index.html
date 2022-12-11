@@ -2,4 +2,9 @@
 <h1>Karaokemp Website!</h1>
 <h2>Request Karaoke song for the Burnerot!</h2>
 
-<input text = "Youtube Link" placeholder = "Youtube Link" style="width: 40%"/>
+<form action="/request" method="POST">
+<input text = "Youtube Link" name = "song_url" placeholder = "Youtube Link" style="width: 40%"/>
+<input text = "Youtube Link" name = "requester" placeholder = "Your name" style="width: 15%"/> 
+
+<input type="submit" />
+</form>
