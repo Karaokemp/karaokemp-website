@@ -1,3 +1,6 @@
+const {CloudTasksClient} = require('@google-cloud/tasks');
+const client = new CloudTasksClient();
+
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
