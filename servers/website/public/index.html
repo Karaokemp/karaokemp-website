@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Karaokemp Website!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
@@ -20,12 +21,13 @@ body {
 
 .left {
   left: 0;
-  background-color: #111;
+  background-color: white;
+  color: black;
 }
 
 .right {
   right: 0;
-  background-color: red;
+  background-color: gray;
 }
 
 .centered {
@@ -43,21 +45,30 @@ body {
 </style>
 </head>
 <body>
-
+  <header>
+  </header>
 <div class="split left">
-  <div>
-    <img src="logo.png" alt="Karaokemp Logo" style="width: 30%;height: auto;">
-    <h2>Jane Flex</h2>
-    <p>Some text.</p>
-  </div>
-</div>
+  <img src="logo.png" alt="Karaokemp Logo" style="width: 30%;height: auto;">
+  <h1>Karaokemp Website!</h1>
+  <h2>Request Karaoke song for the Burnerot!</h2>
+  <form action="/request" method="POST">
+  <input text = "Youtube Link" name = "song_url" placeholder = "Youtube Link" style="width: 40%; height:2em"/>
+  <input text = "Youtube Link" name = "requester" placeholder = "Your name" style="width: 15%; height: 2em"/> 
+  <input type="submit" />
+  </form></div>
 
 <div class="split right">
-  <div class="centered">
-    <img src="logo.png" alt="Avatar man">
-    <h2>John Doe</h2>
-    <p>Some text here too.</p>
-  </div>
+    <h2>Requests</h2>
+    <ol>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ol>
 </div>
      
 </body>

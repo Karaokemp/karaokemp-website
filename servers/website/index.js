@@ -12,8 +12,7 @@ app.use(express.static('public'))
 app.post('/request', function(req, res) {
     let songRequest = req.body
     console.log(songRequest)
-    res.sendFile(__dirname + '/public/requests.html')
-    
+    res.sendFile(__dirname+'/public/index.html')
 });
 
 
