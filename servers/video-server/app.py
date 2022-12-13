@@ -11,7 +11,6 @@ def home():
     return render_template('index.html')
 
 @app.route("/youtube_video", methods=["PUT"])
-
 def put_youtube_video():
     video_id = request.args.get('video_id')
     requester = request.args.get('requester')

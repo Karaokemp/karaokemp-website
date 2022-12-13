@@ -22,7 +22,7 @@ app.post('/request', function(req, res) {
     let requester = songRequest.requester
     const songURLObject = url.parse(songRequest.song_url, true).query;
     videoID = songURLObject.v
-    videoServerRequestURL = VIDEO_SERVER_URL + "/?video_id=" + videoID + "&requester=" + requester
+    videoServerRequestURL = VIDEO_SERVER_URL + "youtube_video/?video_id=" + videoID + "&requester=" + requester
     console.log(videoServerRequestURL)
     const task = {
       httpRequest: {
