@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,request
 import os
 from services.youtube_service import download as download_youtube_video
 from services.storage_service import upload
@@ -10,10 +10,13 @@ app = Flask(__name__, static_url_path='/templates')
 def home():
     return render_template('index.html')
 
-@app.route("/youtube_video/<video_id>", methods=["PUT"])
-def put_youtube_video(video_id):
+@app.route("/youtube_video", methods=["PUT"])
 
-    print(f'request to put youtube video id: {video_id}')
+def put_youtube_video():
+    video_id = request.args.get('video_id')
+    requester = request.args.get('requester')
+    
+    print(f'{requester} requests to put youtube video id: {video_id}')
     video_path = download_youtube_video(video_id=video_id)
     video_url = upload(video_path)
     return video_url
