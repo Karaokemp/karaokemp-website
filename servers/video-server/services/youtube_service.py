@@ -38,4 +38,4 @@ def download(video_id):
         print(f'Downloaded: {filename}')
 
 
-    return file_path
+    return video_title, file_path

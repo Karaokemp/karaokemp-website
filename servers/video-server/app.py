@@ -2,6 +2,7 @@ from flask import Flask, render_template,request
 import os
 from services.youtube_service import download as download_youtube_video
 from services.storage_service import upload
+from services.db_service import create as create_db_document
 
 app = Flask(__name__)
 
@@ -16,9 +17,17 @@ def put_youtube_video():
     requester = request.args.get('requester')
     
     print(f'{requester} requests to put youtube video id: {video_id}')
-    video_path = download_youtube_video(video_id=video_id)
+    video_title, video_path = download_youtube_video(video_id=video_id)
     video_url = upload(video_path)
-    return video_url
+    song_request = {
+        'song_title':video_title,
+        'youtube_video_id': video_id,
+        'video_url': video_url,
+        'requester': requester
+    }
+    update_time = create_db_document(song_request)
+    print(song_request)
+    return song_request
 
 
 if __name__ == "__main__":
