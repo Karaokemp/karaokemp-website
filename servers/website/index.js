@@ -22,20 +22,22 @@ app.post('/request', function(req, res) {
     let requester = songRequest.requester
     const songURLObject = url.parse(songRequest.song_url, true).query;
     videoID = songURLObject.v
-    videoServerRequestURL = VIDEO_SERVER_URL + "youtube_video/?video_id=" + videoID + "&requester=" + requester
+    videoServerRequestURL = `https://video-server-sch5ny6pxq-ew.a.run.app/youtube_video?video_id=${videoID}&requester=${requester}`
     console.log(videoServerRequestURL)
     const task = {
       httpRequest: {
         headers: {
           'Content-Type': 'text/plain',
         },
-        httpMethod: 'POST',
-        videoServerRequestURL,
+        httpMethod: 'PUT',
+        url: videoServerRequestURL,
       },
     };
     const taskRequest = {parent: parent, task: task};
     client.createTask(taskRequest).then(response=>{
       console.log(response)
+    }).catch(e=>{
+      console.log(e)
     })
 
 

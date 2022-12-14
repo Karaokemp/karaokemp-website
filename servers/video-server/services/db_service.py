@@ -1,6 +1,6 @@
 from google.cloud import firestore
-db = firestore.Client(project="karaokemp-website2")
-songs_collection_ref = db.collection('karaoke-songs')
+db = firestore.Client(project="karaokemp-website")
+songs_collection_ref = db.collection('song-requests')
 
 def create(song_request):
     update_time,song_request_ref = songs_collection_ref.add(song_request)
