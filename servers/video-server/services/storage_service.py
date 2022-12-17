@@ -12,7 +12,10 @@ def upload(file_path,video_details):
     blob = bucket.blob(filename)
     blob.upload_from_filename(file_path)
     blob.metadata = video_details
-    blob.patch()
+    try:
+        blob.patch()
+    except Exception as e:
+        print(e)
 
     print(f'uploaded {filename}')
     return f'{bucket_url}/{filename}'
