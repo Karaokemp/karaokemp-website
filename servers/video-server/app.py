@@ -1,7 +1,11 @@
 from flask import Flask, render_template,request
+from unidecode import unidecode
 import os
 from services.youtube_service import download as download_youtube_video
 from services.storage_service import upload
+
+def toAscii(utf8):
+    return utf8.encode('ascii','ignore').decode('ascii')
 
 app = Flask(__name__)
 
@@ -15,11 +19,12 @@ def put_youtube_video():
     video_id = request.args.get('video_id')
     requester = request.args.get('requester')
     
+    
     print(f'{requester} requests to put youtube video id: {video_id}')
     video_title, video_path = download_youtube_video(video_id=video_id)
     video_details = {
-        'title': video_title,
-        'requester': requester,
+        'title': unidecode(video_title),
+        'requester': unidecode(requester),
     }
     video_url = upload(video_path,video_details=video_details)
     return video_details

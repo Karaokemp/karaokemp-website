@@ -33,3 +33,13 @@ resource "google_project_iam_binding" "appengine_admin" {
     "serviceAccount:firebase-adminsdk-nt2m9@karaokemp-website.iam.gserviceaccount.com"
   ]
 }
+
+resource "google_project_iam_binding" "custom_role" {
+  project = "karaokemp-website"
+  role    = google_project_iam_custom_role.karaokemp_website.id
+
+  members = [
+    "serviceAccount:karaokemp-website@karaokemp-website.iam.gserviceaccount.com"
+  ]
+}
+
