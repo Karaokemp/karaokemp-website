@@ -22,8 +22,7 @@ def put_youtube_video():
         'requester': requester,
     }
     video_url = upload(video_path,video_details=video_details)
-    print(song_request)
-    return 
+    return video_title
 
 
 if __name__ == "__main__":
