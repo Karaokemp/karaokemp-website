@@ -1,4 +1,7 @@
 const {CloudTasksClient} = require('@google-cloud/tasks');
+const storage = require('./services/storage')
+storage.getKaraokeSongs().then(console.log).catch(console.error)
+
 const url = require('url')
 const client = new CloudTasksClient();
 
