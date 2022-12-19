@@ -1,8 +1,5 @@
 const {CloudTasksClient} = require('@google-cloud/tasks');
 const storage = require('./services/storage')
-storage.getKaraokeSongs().then(songs=>{
-  console.log(songs)
-})
 
 const url = require('url')
 const client = new CloudTasksClient();
@@ -48,6 +45,13 @@ app.post('/request', function(req, res) {
 
 
     res.sendFile(__dirname+'/public/index.html')
+});
+
+app.get('/karaoke-songs', function(req, res) {
+  storage.getKaraokeSongs().then(songs=>{
+    res.json(songs)
+  })
+
 });
 
 
