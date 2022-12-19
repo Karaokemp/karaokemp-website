@@ -35,7 +35,7 @@ function main() {
 
   async function listFiles() {
     // Lists files in the bucket
-    const [files] = await storage.bucket(bucketName).getFiles();
+    const [files] = await storage.bucket('karaokemp-karaoke-songs').getFiles();
 
     console.log('Files:');
     files.forEach(file => {
