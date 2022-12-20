@@ -59,16 +59,34 @@ body {
 
 <div class="split right">
     <h2>Requests</h2>
-    <ol>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ol>
+    <ul id="karaoke-songs"></ul>
+    <script>
+      const url = 'http://localhost/karaoke-songs';
+      const ul = document.getElementById("karaoke-songs")
+      const list = document.createDocumentFragment();
+      fetch(url)
+      .then((response) => {
+        return response.json()
+      })
+      .then((songs) => {
+        songs.map(function(song) {
+          let li = document.createElement('li');
+          let link = document.createElement('a');
+          
+          link.innerHTML = song.title;
+          link.setAttribute("href",song.url)
+          link.setAttribute("title",`By ${song.requester}`)
+
+          li.appendChild(link);
+        ul.appendChild(li);
+  
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+      ul.appendChild(list);
+      </script>
 </div>
      
 </body>
